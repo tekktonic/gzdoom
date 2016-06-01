@@ -9,7 +9,7 @@
 
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <wordexp.h>
+//#include <wordexp.h>
 #include <signal.h>
 
 int ChildQuit;
@@ -438,7 +438,7 @@ bool TimidityPPMIDIDevice::LaunchTimidity ()
 	}
 	
 	int forkres;
-	wordexp_t words = {};
+/*	wordexp_t words = {};
 
 	switch (wordexp (CommandLine.GetChars(), &words, 0))
 	{
@@ -449,7 +449,7 @@ bool TimidityPPMIDIDevice::LaunchTimidity ()
 		wordfree (&words);
 	default:
 		return false;
-	}
+        }*/
 
 	forkres = fork ();
 
@@ -460,8 +460,8 @@ bool TimidityPPMIDIDevice::LaunchTimidity ()
 		freopen ("/dev/null", "r", stdin);
 //		freopen ("/dev/null", "w", stderr);
 		close (WavePipe[1]);
-
-		execvp (words.we_wordv[0], words.we_wordv);
+        const char *args[] = {"timidity", NULL};
+		execvp ("timidity", args);
 		fprintf(stderr,"execvp failed\n");
 		_exit (0);	// if execvp succeeds, we never get here
 	}
