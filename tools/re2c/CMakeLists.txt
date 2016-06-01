@@ -3,6 +3,7 @@ cmake_minimum_required( VERSION 2.8.7 )
 if( NOT CMAKE_CROSSCOMPILING )
 
 include( CheckFunctionExists )
+include( CheckIncludeFiles )
 include( CheckTypeSize )
 
 if( MSVC )
@@ -16,6 +17,7 @@ set( PACKAGE_VERSION 0.16 )
 set( PACKAGE_STRING "re2c 0.16" )
 set( PACKAGE_BUGREPORT "re2c-general@lists.sourceforge.net" )
 
+CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
 CHECK_FUNCTION_EXISTS( strdup HAVE_STRDUP )
 CHECK_FUNCTION_EXISTS( strndup HAVE_STRNDUP )
 
